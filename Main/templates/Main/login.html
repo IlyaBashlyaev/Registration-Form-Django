@@ -1,0 +1,513 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+        <title>Regastration</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Itim', Arial;
+            }
+
+            .alert {
+                transition: 1s;
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(0, 0, 0, .8);
+            }
+
+            .inner-alert {
+                transition: 1s;
+                width: 40vw;
+                display: flex;
+                flex-direction: column;
+                background-color: #777;
+                border-radius: 10vh;
+                border: 2vh solid #333;
+                box-shadow: 0 0 4vh #000;
+                color: #111;
+            }
+
+            .inner-alert:hover {
+                transition: 1s;
+                background-color: #888;
+                border: 2vh solid #444;
+                color: #222;
+            }
+
+            .alert-text {
+                transition: 1s;
+                padding: 4vh 4vw 4vh 4vw;
+                text-align: center;
+                font-size: 50px;
+            }
+
+            .alert-button {
+                width: 100%;
+                height: calc(45px + 10vh);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bg {
+                position: fixed;
+                width: 125vw;
+                height: 125vh;
+                transform: translate(-10vw, -10vh);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .bg img {
+                transition: 1s;
+                filter: blur(25px);
+            }
+
+            main {
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            form {
+                transition: 1s;
+                width: 60vw;
+                height: 75vh;
+                background-color: #777;
+                border-radius: 10vh;
+                border: 2vh solid #333;
+                opacity: 0.7;
+                box-shadow: 0 0 4vh #000;
+            }
+
+            form:hover {
+                transition: 1s;
+                background-color: #888;
+                border: 2vh solid #444;
+            }
+
+            .mode {
+                transition: 1s;
+                width: 100%;
+                height: 14vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 7.5vh 7.5vh 0 0;
+            }
+
+            .sign {
+                transition: 1s;
+                padding: 1vh 1vw 1vh 1vw;
+                background-color: #bbb;
+                border: 0.5vh solid #999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #111;
+                font-size: 30px;
+            }
+
+            .sign:hover {
+                transition: 1s;
+                background-color: #ccc;
+                border: 0.5vh solid #aaa;
+                color: #222;
+            }
+
+            .sign.clicked {
+                background-color: #6fa6ff;
+                border: 0.5vh solid #2d88ff;
+                color: #113264;
+                box-shadow: 0 0 1vh #0080ff;
+            }
+
+            .sign-up {
+                border-radius: 1vh 0 0 1vh;
+            }
+
+            .sign-in {
+                border-radius: 0 1vh 1vh 0;
+            }
+
+            .form-input {
+                transition: 1s;
+                margin-top: 4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .form-input.username {
+                margin-top: 0;
+            }
+
+            .inner-form-input {
+                transition: 1s;
+                width: 50vw;
+                height: 10vh;
+                padding-left: 2vh;
+                padding-right: 2vh;
+                background-color: #aaa;
+                border-radius: 2.5vh;
+                border: 1vh solid #171717;
+                border-radius: 1vh;
+                box-shadow: 0 0 2vh rgba(0, 0, 0, .5);
+                outline: none;
+                font-size: 5vh;
+                color: #000;
+            }
+
+            .inner-form-input.password {
+                width: calc(50vw - 9vh);
+                overflow: hidden;
+            }
+
+            .form-input-img {
+                margin-left: 4vh;
+                width: 5vh;
+                height: 10vh;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+            }
+
+            .form-input-img img {
+                width: 5vh;
+                height: 5vh;
+                border-radius: 50%;
+            }
+
+            .inner-form-input::placeholder {
+                transition: 1s;
+                color: #555;
+            }
+
+            .inner-form-input.clicked {
+                transition: 1s;
+                background-color: #bbb;
+                border: 1vh solid #272727;
+            }
+
+            .inner-form-input.clicked::placeholder {
+                transition: 1s;
+                color: #666;
+            }
+
+            .inner-form-input.wrong {
+                transition: 1s;
+                background-color: #ff8080;
+                border: 1vh solid #aa1010;
+                color: #aa1010;
+                box-shadow: 0 0 2vh rgba(255, 0, 0, .5);
+            }
+
+            .inner-form-input.wrong::placeholder {
+                transition: 1s;
+                color: #661010;
+            }
+
+            .login {
+                transition: 1s;
+                margin-top: 4vh;
+                width: 100%;
+                height: 10vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .login button, .alert-button button {
+                transition: 1s;
+                background-color: #28a028;
+                border: 1vh solid #1e781e;
+                border-radius: 2vh;
+                box-shadow: 0 0 1vh #196419;
+                font-size: 45px;
+                color: #196419;
+            }
+
+            .login button {
+                padding: 1vh 1vw 1vh 1vw;
+            }
+
+            .alert-button button {
+                padding: 1vh 2vw 1vh 2vw;
+            }
+
+            .login button:hover, .alert-button button:hover {
+                transition: 1s;
+                background-color: #32c832;
+                border: 1vh solid #28a028;
+            }
+
+            .account {
+                display: none;
+                visibility: hidden;
+            }
+            
+            @media screen and (max-width: 1000px) {
+                .inner-alert {
+                    width: 70vw;
+                }
+                
+                form {
+                    width: 90vw;
+                }
+
+                .inner-form-input {
+                    width: 70vw;
+                }
+
+                .inner-form-input.password {
+                    width: calc(70vw - 9vh);
+                }
+            }
+        </style>
+    </head>
+
+    <body onmouseup="rippleHide()">
+        <div class="alert" style='opacity: 0; z-index: 0;'>
+            <div class="inner-alert">
+                <div class="alert-text"></div>
+                <div class="alert-button">
+                    <button onclick='removeAlert()'>Ok</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg">
+            <img src="https://s1.1zoom.ru/b4938/484/Italy_Mountains_Houses_Fields_Forests_Scenery_519639_1920x1080.jpg" style='width: 120vw; height: 120vh;'>
+        </div>
+
+        <main>
+            <form method='post'>
+                {% csrf_token %}
+    
+                <div class="mode">
+                    <div class="sign sign-up clicked" onclick='changeMode(0)'>Sign Up</div>
+                    <div class="sign sign-in" onclick='changeMode(1)'>Sign In</div>
+                </div>
+    
+                <div class="form-input username" onclick='inputClick(0)'>
+                    {{ form.username }}
+                </div>
+    
+                <div class="form-input email" onclick='inputClick(1)'>
+                    {{ form.email }}
+                </div>
+    
+                <div class="form-input password"  onclick='inputClick(2)'>
+                    {{ form.password }}
+
+                    <div class="form-input-img"  onclick='changePassword(isPassword)'>
+                        <img src="{% static 'Main/closed_eye.png' %}">
+                    </div>
+                </div>
+    
+                <div class="login">
+                    <button type="button" onclick='login()'>Sign Up</button>
+                </div>
+            </form>
+        </main>
+
+        {% if accounts %}
+            {% for el in accounts %}
+                <div class="account">
+                    <a>{{ el.email }}</a>
+                    <a>{{ el.password }}</a>
+                    <a>{{ el.pk }}</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <script>
+            var isClicked = false
+            var isCorrect = true
+            var isPassword = true
+            var isFormEmail = false
+            var isFormPassword = false
+
+            var lastModeIndex = 0
+            var lastFormIndex = 0
+            var button
+
+            const bg = document.querySelector('.bg').querySelector('img')
+            var formInput
+            var Value
+
+            var main = document.querySelector('main')
+            main.onclick = function (e) {
+                if(e.target == this) {
+                    if (!isClicked) {
+                        bg.style.width = '150vw'
+                        bg.style.height = '150vh'
+                        isClicked = true
+                    }
+
+                    else {
+                        bg.style.width = '125vw'
+                        bg.style.height = '125vh'
+                        isClicked = false
+                    }
+                }
+            }
+
+            function changeMode(modeIndex) {
+                const sign = document.querySelectorAll('.sign')
+
+                if (modeIndex != lastModeIndex) {
+                    sign[modeIndex].classList.add('clicked')
+                    sign[lastModeIndex].classList.remove('clicked')
+                    lastModeIndex = modeIndex
+                }
+
+                const form = document.querySelector('form')
+                const login = document.querySelector('.login').querySelector('button')
+                const username = document.querySelector('.form-input')
+
+                if (lastModeIndex == 1) {
+                    form.style.height = '64vh'
+                    login.innerText = 'Sign In'
+                    username.style.display = 'none'
+                }
+
+                else {
+                    form.style.height = '75vh'
+                    login.innerText = 'Sign Up'
+                    username.style.display = 'flex'
+                }
+            }
+
+            function inputClick(formIndex) {
+                formInput = document.querySelectorAll('.inner-form-input')
+
+                if (formIndex != lastFormIndex) {
+                    formInput[formIndex].classList.add('clicked')
+                    formInput[lastFormIndex].classList.remove('clicked')
+                    lastFormIndex = formIndex
+                }
+            }
+
+            function login() {
+                const formInputs = document.querySelectorAll('.inner-form-input')
+
+                for (var index = 0; index < 3; index++) {
+                    formInput = formInputs[index]
+                    Value = formInput.value
+
+                    if (
+                        Value == "" ||
+                        index == 1 && (!Value.includes("@") || Value.includes(" "))
+                    ) {
+                        formInput.classList.add('wrong')
+                        return
+                    }
+                }
+
+                
+                const accounts = document.querySelectorAll('.account')
+                const formUsername = formInputs[0].value
+                const formEmail = formInputs[1].value
+                const formPassword = formInputs[2].value
+
+                if (formPassword.includes('#') || formPassword.includes('?')) {
+                    addAlert('It is forbidden to use characters in the password such as "#" or "?"')
+                }
+
+                else if (lastModeIndex) {
+                    for (var i = 1; i <= accounts.length; i++) {
+                        account = accounts[i - 1].querySelectorAll('a')
+                        email = account[0].innerText
+                        password = account[1].innerText
+                        pk = account[2].innerText
+
+                        if (formEmail == email && formPassword == password) {
+                            var a = document.createElement('a')
+                            a.href = `./${pk}/${formPassword}`
+                            a.click()
+                        }
+                    }
+
+                    addAlert('Incorrect email or password')
+                }
+
+                else {
+                    for (var i = 1; i <= accounts.length; i++) {
+                        account = accounts[i - 1].querySelectorAll('a')
+                        email = account[0].innerText
+                        password = account[1].innerText
+
+                        if (formEmail == email) {
+                            addAlert('Such an email already exists')
+                            return
+                        }
+                    }
+
+                    const form = document.querySelector('form')
+                    button = document.createElement('button')
+                    form.appendChild(button)
+
+                    button.setAttribute('type', 'submit')
+                    button.click()
+                }
+            }
+
+            function addAlert(text) {
+                const alert = document.querySelector('.alert')
+                alert.style.zIndex = '1'
+                alert.style.opacity = '1'
+
+                const alertText = alert.querySelector('.alert-text')
+                alertText.innerText = text
+            }
+
+            function removeAlert() {
+                const alert = document.querySelector('.alert')
+                alert.style.opacity = '0'
+                alert.style.zIndex = '0'
+            }
+
+            function wrongClick(index) {
+                formInput = document.querySelectorAll('.inner-form-input')[index]
+                if (formInput.classList.contains('wrong')) {
+                    formInput.classList.remove('wrong')
+                }
+            }
+
+            function changePassword(_isPassword) {
+                const input = document.querySelectorAll('.inner-form-input')[2]
+                const img = document.querySelector('.form-input-img').querySelector('img')
+
+                if (_isPassword) {
+                    input.type = 'text'
+                    img.src = "{% static 'Main/opened_eye.png' %}"
+                }
+                
+                else {
+                    input.type = 'password'
+                    img.src = "{% static 'Main/closed_eye.png' %}"
+                }
+
+                isPassword = !_isPassword
+            }
+        </script>
+    </body>
+</html>

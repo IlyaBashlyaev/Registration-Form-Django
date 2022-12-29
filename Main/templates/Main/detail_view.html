@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+        <title>Account</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Inconsolata', Arial;
+            }
+        </style>
+    </head>
+
+    <body>
+        <b>Username:&nbsp;&nbsp;&nbsp;&nbsp;{{ account.username }}</b>
+        <p>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ account.email }}</p>
+        <p>Password:&nbsp;&nbsp;&nbsp;&nbsp;<a>{{ password }}</a></p>
+        <p>Primary key: <a>{{ account.pk }}</a></p><br>
+        <a href="/">Main Page</a> | <a href="/login">Login</a>
+
+        <script>
+            const p = document.querySelectorAll('p')
+            const password = p[1].querySelector('a')
+            const pk = p[2].querySelector('a').innerText
+
+            if (localStorage.getItem('password' + pk)) {
+                password.innerText = '{{ account.password }}'
+            }
+
+            else if (!password.innerText.includes('•')) {
+                localStorage.setItem('password' + pk, true)
+            }
+        </script>
+    </body>
+</html>

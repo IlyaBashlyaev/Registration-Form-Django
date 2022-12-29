@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+        <title>Accounts</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Inconsolata', Arial;
+            }
+        </style>
+    </head>
+
+    <body>
+        {% for el in accounts %}
+            <b>Username:&nbsp;&nbsp;&nbsp;&nbsp;{{ el.username }}</b>
+            <p>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ el.email }}</p>
+            <p>Primary key: <a href="/{{ el.pk }}">{{ el.pk }}</a></p><br>
+        {% endfor %}
+
+        <br><a href="/">Main Page</a> | <a href="/login">Login</a>
+    </body>
+</html>
